@@ -5,65 +5,75 @@
     padding: 0;
 }
 
+:root {
+    /* 定義顏色變數 */
+    --color-background: #1e1e1e; /* 深灰/黑色背景 */
+    --color-text-light: #f0f0f0; /* 亮色文字 */
+    --color-primary: #FF5733; /* 亮眼的主題色 (橘紅) */
+    --color-secondary: #00bcd4; /* 次要的亮色 (青藍) */
+    --color-card-bg: #2d2d2d; /* 行程卡片背景 */
+}
+
 body {
-    font-family: 'Noto Sans TC', sans-serif; /* 使用更適合中文的字體 */
-    background-color: #f4f7f6; /* 輕微的灰色背景 */
-    color: #333;
+    font-family: 'Noto Sans TC', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text-light);
     line-height: 1.6;
     padding: 20px;
 }
 
+/* 容器樣式 */
 .container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-background);
+    padding: 30px 15px;
+    /* 輕微的發光效果 */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); 
 }
 
 /* 標頭樣式 */
 header {
     text-align: center;
-    padding-bottom: 20px;
-    border-bottom: 3px solid #e0e0e0;
-    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 2px solid var(--color-primary);
+    margin-bottom: 40px;
 }
 
 header h1 {
-    color: #e53935; /* 東京鐵塔紅色 */
-    font-size: 2.5em;
-    margin-bottom: 5px;
-}
-
-header h2 {
-    color: #616161;
-    font-size: 1.2em;
-    font-weight: 400;
+    color: var(--color-primary);
+    font-size: 3em;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px rgba(255, 87, 51, 0.7); /* 文字陰影發光 */
     margin-bottom: 10px;
 }
 
 header p {
-    font-size: 1.1em;
-    font-weight: bold;
+    font-size: 1.2em;
+    font-weight: 400;
+    color: #aaa;
 }
 
-/* 每日行程樣式 */
+/* 每日行程區塊 */
 .day-plan {
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     padding: 20px;
-    border-left: 5px solid #4a90e2; /* 天藍色邊條 */
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    background-color: var(--color-card-bg);
+    border-radius: 15px;
+    /* 區塊陰影 */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    /* 邊框使用主題色 */
+    border: 1px solid rgba(255, 87, 51, 0.3);
 }
 
 .day-title {
-    color: #4a90e2;
-    font-size: 1.5em;
-    margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: 1px dashed #ccc;
+    color: var(--color-secondary);
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--color-secondary);
     font-weight: 700;
+    text-transform: uppercase;
 }
 
 /* 行程列表樣式 */
@@ -73,74 +83,91 @@ header p {
 }
 
 .day-plan li {
-    padding: 10px 0;
-    border-bottom: 1px dotted #e0e0e0;
-    display: flex;
+    padding: 15px 0;
+    border-left: 3px solid var(--color-secondary); /* 左側時間軸線 */
+    padding-left: 20px;
+    position: relative;
+    display: flex; /* 讓時間和連結排在同一行 */
     align-items: center;
     font-size: 1.1em;
 }
 
+.day-plan li:before {
+    /* 時間軸上的圓點 */
+    content: '';
+    position: absolute;
+    left: -8px; /* 稍微超過邊線 */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 8px var(--color-primary);
+}
+
 .day-plan li:last-child {
-    border-bottom: none;
+    border-left: none; /* 最後一項不需要時間軸線 */
 }
 
-/* 時間標籤樣式 */
+/* 時間標籤樣式 (使用 span 元素) */
 .day-plan li span {
-    background-color: #e53935;
-    color: white;
-    padding: 4px 10px;
-    margin-right: 15px;
-    border-radius: 4px;
+    background-color: var(--color-primary);
+    color: var(--color-background); /* 深色文字 */
+    padding: 6px 12px;
+    margin-right: 25px;
+    border-radius: 8px; /* 圓角膠囊 */
     font-weight: bold;
-    min-width: 80px; /* 確保時間寬度一致 */
+    min-width: 100px;
     text-align: center;
+    box-shadow: 0 0 5px rgba(255, 87, 51, 0.5); /* 時間發光 */
+    transition: transform 0.2s;
 }
 
-/* 自由活動日/備註樣式 */
-.free-day {
-    padding: 10px;
-    background-color: #fff3cd; /* 溫暖的黃色背景 */
-    color: #856404;
-    border: 1px solid #ffeeba;
-    border-radius: 4px;
-    font-style: italic;
+.day-plan li:hover span {
+    transform: scale(1.05); /* 滑鼠懸停時放大時間 */
 }
 
-/* 底部樣式 */
-footer {
-    text-align: center;
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #e0e0e0;
-    color: #999;
-    font-size: 0.9em;
+/* 連結樣式 */
+.day-plan li a {
+    color: var(--color-text-light);
+    text-decoration: none;
+    transition: color 0.3s, text-shadow 0.3s;
+    font-weight: 500;
 }
 
-footer p {
-    margin: 5px 0;
+.day-plan li a:hover {
+    color: var(--color-secondary); /* 懸停時變色 */
+    text-shadow: 0 0 5px var(--color-secondary); /* 懸停時發光 */
 }
+
 
 /* 響應式設計：小屏幕調整 (手機) */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     body {
         padding: 10px;
     }
     .container {
-        padding: 20px 15px;
+        padding: 20px 10px;
     }
     header h1 {
-        font-size: 1.8em;
+        font-size: 2em;
     }
     .day-title {
-        font-size: 1.3em;
+        font-size: 1.5em;
     }
     .day-plan li {
-        flex-direction: column; /* 在小螢幕上時間和景點垂直排列 */
+        flex-direction: column; /* 在小螢幕上垂直排列 */
         align-items: flex-start;
-        padding: 15px 0;
+        padding: 15px 0 15px 20px; /* 調整左邊距 */
     }
     .day-plan li span {
-        margin-bottom: 5px;
+        margin-bottom: 8px;
         margin-right: 0;
+        min-width: unset; /* 取消最小寬度限制 */
+    }
+    .day-plan li a {
+        padding-top: 5px; /* 給連結一點空間 */
     }
 }
